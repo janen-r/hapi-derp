@@ -8,7 +8,8 @@
     "lint": "eslint src --color",
     "serve": "node index.js",
     "test": "lab",
-    "test-cov-html": "lab -r html -o coverage.html"
+    "test-cov-html": "lab -r html -o ./test/results/coverage.html",
+    "newComponent": "node lib/newComponent"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
     "@hapi/inert": "^5.2.0",
     "@hapi/joi": "^15.0.3",
     "@hapi/vision": "^5.5.2",
+    "chalk": "^2.4.2",
     "dotenv": "^8.0.0",
     "glob": "^7.1.4",
     "hapi-auth-jwt2": "^8.6.1",
