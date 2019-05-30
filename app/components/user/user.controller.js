@@ -1,6 +1,13 @@
 const jwt = require('jsonwebtoken')
-const { log, error } = require('../../../utils').logs
-const { unauthorized, badImplementation } = require('@hapi/boom')
+const {
+  log,
+  error
+} = require('../../../utils').logs
+const {
+  unauthorized,
+  badImplementation
+} = require('@hapi/boom')
+
 function userController() {
   /* Controller helper functions */
   const helpers = {
@@ -8,8 +15,12 @@ function userController() {
       data.username === 'test' && data.password === 'test@123',
     /* To be imported in JWT plugin */
     verifyToken: async decoded => {
-      if (decoded.username === 'test') return { isValid: true } // dumbass logic for testing
-      return { isValid: false }
+      if (decoded.username === 'test') return {
+        isValid: true
+      } // dumbass logic for testing
+      return {
+        isValid: false
+      }
     }
   }
 
@@ -17,7 +28,9 @@ function userController() {
   const handlers = {
     open(req, h) {
       try {
-        return { data: "You've reached an open route" }
+        return {
+          data: "You've reached an open route"
+        }
       } catch (e) {
         error(e)
         return badImplementation('Something went wrong!')
@@ -32,17 +45,20 @@ function userController() {
         log(validUser)
         if (!validUser) return unauthorized('Invalid user')
 
-        const token = jwt.sign(
-          {
+        const token = jwt.sign({
             username: 'test',
             password: 'test@123'
           },
-          'someKey',
-          { algorithm: 'HS256' }
+          'someKey', {
+            algorithm: 'HS256'
+          }
         )
 
         return {
-          data: { message: 'success', token }
+          data: {
+            message: 'success',
+            token
+          }
         }
       } catch (e) {
         error(e)
