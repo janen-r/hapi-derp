@@ -1,16 +1,17 @@
 exports.up = async function (knex, Promise) {
-    if (await knex.schema.hasTable('factory_fields'))
-        return;
+  if (await knex.schema.hasTable("factory_fields")) return;
 
-    return knex.schema.createTable('factory_fields', function (table) {
-        table.string('factory_field_id', 36).primary()
-        table.string('factory_dependency_id', 36).references('factory_dependencies.factory_dependency_id')
-        table.string('field_name', 30).notNullable()
-        table.string('status', 36).references('status.status_id')
-        table.timestamps()
-    })
-}
+  return knex.schema.createTable("factory_fields", function (table) {
+    table.bigInteger("id").primary();
+    table
+      .bigInteger("factory_dependency_id")
+      .references("factory_dependencies.id");
+    table.string("name", 30).notNullable();
+    table.integer("status").comment("1 - active, 2 - inactive , 3 - deleted");
+    table.timestamps();
+  });
+};
 
 exports.down = function (knex, Promise) {
-    return knex.schema.dropTableIfExists('factory_fields')
-}
+  return knex.schema.dropTableIfExists("factory_fields");
+};

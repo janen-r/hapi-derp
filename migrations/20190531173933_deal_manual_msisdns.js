@@ -1,10 +1,10 @@
 exports.up = async function (knex, Promise) {
-  if (await knex.schema.hasTable("code_generations")) return;
+  if (await knex.schema.hasTable("deal_manual_msisdns")) return;
 
-  return knex.schema.createTable("code_generations", function (table) {
+  return knex.schema.createTable("deal_manual_msisdns", function (table) {
     table.bigInteger("id").primary();
     table.bigInteger("deal_id").references("deals.id");
-    table.string("code", 30).notNullable();
+    table.string("msisdn", 20).notNullable();
     table
       .integer("status")
       .defaultTo(1)
@@ -14,5 +14,5 @@ exports.up = async function (knex, Promise) {
 };
 
 exports.down = function (knex, Promise) {
-  return knex.schema.dropTableIfExists("code_generations");
+  return knex.schema.dropTableIfExists("deal_manual_msisdns");
 };
